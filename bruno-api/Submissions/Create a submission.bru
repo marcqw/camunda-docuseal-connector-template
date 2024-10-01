@@ -1,0 +1,29 @@
+meta {
+  name: Create a submission
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://api.docuseal.co/submissions
+  body: json
+  auth: none
+}
+
+headers {
+  X-Auth-Token: {{X-Auth-Token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "template_id": 29727,
+    "send_email": true,
+    "submitters": [
+      {
+        "role": "First Party",
+        "email": "williamcamundi@mailinator.com"
+      }
+    ]
+  }
+}
