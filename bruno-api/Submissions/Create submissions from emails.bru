@@ -1,0 +1,43 @@
+meta {
+  name: Create submissions from emails
+  type: http
+  seq: 4
+}
+
+post {
+  url: https://api.docuseal.co/submissions/emails
+  body: json
+  auth: none
+}
+
+headers {
+  X-Auth-Token: {{X-Auth-Token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "template_id": 29727,
+    "emails": "{{EMAIL-TEST-LIST}}",
+    "send_email": true,
+    "message": {
+      "subject": "subject",
+      "body": "body {{template.name}}, {{submitter.link}}, {{account.name}}"
+    }
+  }
+}
+
+docs {
+  # Create submissions from emails
+  
+  This API endpoint allows you to create submissions for a document template and send them to the specified email addresses. This is a simplified version of the POST /submissions API to be used with Zapier or other automation tools.
+  
+  ## Request Body Properties
+  
+  - **template_id** *(required Integer)*: The unique identifier of the template.
+  - **emails** *(required String)*: A comma-separated list of email addresses to send the submission to.
+  - **send_email** *(Boolean)*: Set `false` to disable signature request emails sending.
+  - **message** *(Object)*: 
+    - **subject** *(String)*: Custom signature request email subject.
+    - **body** *(String)*: Custom signature request email body. Can include the following variables: {{template.name}}, {{submitter.link}}, {{account.name}}.
+}
