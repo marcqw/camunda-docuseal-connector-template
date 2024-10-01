@@ -1,0 +1,34 @@
+meta {
+  name: Archive a submission
+  type: http
+  seq: 5
+}
+
+delete {
+  url: https://api.docuseal.co/submissions/480266
+  body: none
+  auth: none
+}
+
+headers {
+  X-Auth-Token: {{X-Auth-Token}}
+}
+
+docs {
+  # Archive a submission
+  
+  The API endpoint allows you to archive a submission.
+  
+  ## Params
+  
+  - **id** required *(integer)*: The unique identifier of the submission.
+  
+  ## Example response
+  
+  ```json
+  {
+    "id": 1,
+    "archived_at": "2023-12-14T15:50:21.799Z"
+  }
+  ```
+}
