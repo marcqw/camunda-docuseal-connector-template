@@ -1,0 +1,111 @@
+meta {
+  name: Update a submitter
+  type: http
+  seq: 3
+}
+
+put {
+  url: https://api.docuseal.co/submitters/500001
+  body: json
+  auth: none
+}
+
+headers {
+  X-Auth-Token: {{X-Auth-Token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "email": "john.doe@example.com",
+    "fields": [
+      {
+        "name": "string",
+        "email": "john.doe@example.com",
+        "phone": "+1234567890",
+        "values": {},
+        "external_id": "string",
+        "send_email": true,
+        "send_sms": false,
+        "reply_to": "string",
+        "completed_redirect_url": "string",
+        "completed": true,
+        "message": {
+          "subject": "string",
+          "body": "string"
+        },
+        "fields": [
+          {
+            "name": "First Name",
+            "default_value": "Acme",
+            "validation_pattern": "[A-Z]{4}",
+            "invalid_message": "string",
+            "readonly": false
+          }
+        ]
+      }
+    ]
+  }
+}
+
+docs {
+  # Update a submitter
+  
+  The API endpoint provides allows you to update submitter details, pre-fill or update field values and re-send emails.
+  
+  ## Parameters
+  
+  - **id** *(required Integer)*: The unique identifier of the submitter.
+  
+  ## Request Body Properties
+  
+  - **name** *(String)*: The name of the submitter.
+  - **email** *(String)*: The email address of the submitter. ```Example: john.doe@example.com```
+  - **phone** *(String)*: The phone number of the submitter, formatted according to the E.164 standard. ```Example: +1234567890```
+  - **values** *(Object)*: An object with pre-filled values for the submission. Use field names for keys of the object. For more configurations see `fields` param.
+  - **external_id** *(String)*: Your application-specific unique string key to identify this submitter within your app.
+  - **send_email** *(Boolean)*: Set `true` to re-send signature request emails.
+  - **send_sms** *(Boolean)*: Set `true` to re-send signature request via phone number SMS.
+  - **reply_to** *(String)*: Specify Reply-To address to use in the notification emails.
+  - **completed_redirect_url** *(String)*: Submitter specific URL to redirect to after the submission completion.
+  - **completed** *(Boolean)*: Pass `true` to mark submitter as completed and auto-signed via API.
+  - **message** *(Object)*: 
+    - **subject** *(String)*: Custom signature request email subject.
+    - **body** *(String)*: Custom signature request email body. Can include the following variables: {{template.name}}, {{submitter.link}}, {{account.name}}.
+  - **fields** *(Array)*: A list of configurations for template document form fields.
+    - **name** *(required String)*: Document template field name. ```Example: First Name```
+    - **default_value** *(String)*: Default value of the field. Use base64 encoded file or a public URL to the image file to set default signature or image fields. ```Example: Acme```
+    - **validation_pattern** *(String)*: HTML field validation pattern string based on https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern specification. ```Example: [A-Z]{4}```
+    - **invalid_message** *(String)*: A custom message to display on pattern validation failure.
+    - **readonly** *(Boolean)*: Set `true` to make it impossible for the submitter to edit predefined field value. ```Default: false```
+  
+  ## Example response
+  
+  ```json
+  {
+    "id": 1,
+    "submission_id": 12,
+    "uuid": "0954d146-db8c-4772-aafe-2effc7c0e0c0",
+    "email": "submitter@example.com",
+    "slug": "dsEeWrhRD8yDXT",
+    "sent_at": "2023-12-14T15:45:49.011Z",
+    "opened_at": "2023-12-14T15:48:23.011Z",
+    "completed_at": "2023-12-10T15:49:21.701Z",
+    "declined_at": null,
+    "created_at": "2023-12-14T15:48:17.173Z",
+    "updated_at": "2023-12-14T15:50:21.799Z",
+    "name": "John Doe",
+    "phone": "+1234567890",
+    "values": [
+      {
+        "field": "Full Name",
+        "value": "John Doe"
+      }
+    ],
+    "documents": [
+  
+    ],
+    "role": "First Party"
+  }
+  ```
+}
